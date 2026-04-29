@@ -1,6 +1,6 @@
 # Negotiation Next Turn Predictor
 
-Video URL: https://www.loom.com/share/f56be7d0043b41e1a675335b3f66438d
+Video URL: https://drive.google.com/file/d/1P1zNRbOXnM1PT1VEKUXs_UMRfRhwg6Kx/view?usp=sharing
 
 This submission exposes `POST http://localhost:3000/v1/predict` for the Cognitive Diplomat negotiation next-turn challenge. It is a Node.js 24 TypeScript service tuned for the required local models `gemma4:e2b` and `qwen3.5:2b`.
 

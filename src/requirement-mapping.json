@@ -1,0 +1,63 @@
+{
+  "requirementMapping": {
+    "REQ_01": {
+      "title": "Predict API - POST /v1/predict",
+      "status": "implemented",
+      "evidence": ["src/server.ts", "src/validation.ts", "src/types.ts"]
+    },
+    "REQ_02": {
+      "title": "Exactly three persona agents in parallel fan-out",
+      "status": "implemented",
+      "evidence": ["src/predictor.ts", "src/test/predictor.test.ts"]
+    },
+    "REQ_03": {
+      "title": "RAG over data/domain/conversations_playbook.md",
+      "status": "implemented",
+      "evidence": ["src/rag.ts", "src/data/domain/conversations_playbook.md"]
+    },
+    "REQ_04": {
+      "title": "Per-request memory layer",
+      "status": "implemented",
+      "evidence": ["src/memory.ts", "src/predictor.ts", "src/test/memory.test.ts"]
+    },
+    "REQ_05": {
+      "title": "Deterministic synthesis at temperature 0 with fixed seed",
+      "status": "implemented",
+      "evidence": ["src/predictor.ts", "src/test/predictor.test.ts"]
+    },
+    "REQ_06": {
+      "title": "Support Ollama and OpenAI-compatible local backends",
+      "status": "implemented",
+      "evidence": ["src/llm.ts", "src/package.json"]
+    },
+    "REQ_07": {
+      "title": "Challenge response schema and metadata",
+      "status": "implemented",
+      "evidence": ["src/types.ts", "src/predictor.ts", "src/test/predictor.test.ts"]
+    },
+    "REQ_08": {
+      "title": "Testing and verification evidence",
+      "status": "implemented",
+      "evidence": ["src/test/predictor.test.ts", "src/test/memory.test.ts", "src/test/requirements.test.ts"]
+    },
+    "REQ_09": {
+      "title": "README with video URL and verification guide",
+      "status": "implemented",
+      "evidence": ["readme.md"]
+    }
+  },
+  "strictnessChecks": {
+    "endpoint": "POST /v1/predict",
+    "personaCount": 3,
+    "distinctPersonaValues": true,
+    "parallelPersonaFanout": true,
+    "ragSource": "src/data/domain/conversations_playbook.md",
+    "perRequestMemory": true,
+    "synthesisTemperature": 0,
+    "synthesisSeed": 424242,
+    "intentClasses": ["accept", "counter_offer", "reject", "offer", "inquiry"],
+    "confidenceRange": { "min": 0, "max": 1 },
+    "nodeVersion": ">=24.0.0",
+    "externalDependenciesRequired": false
+  }
+}

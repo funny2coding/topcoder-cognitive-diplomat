@@ -1,0 +1,40 @@
+{
+  "name": "cognitive-diplomat-negotiation-predictor",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Topcoder Cognitive Diplomat negotiation next-turn predictor.",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "scripts": {
+    "start": "node server.ts",
+    "dev": "node --watch server.ts",
+    "test": "node --test test/*.test.ts"
+  },
+  "requirementMapping": {
+    "REQ_01_predict_api": "src/server.ts exposes POST /v1/predict on port 3000 and validates the challenge request schema.",
+    "REQ_02_three_persona_parallel_fanout": "src/predictor.ts launches exactly three persona LLM calls with Promise.all before synthesis.",
+    "REQ_03_rag_playbook": "src/rag.ts retrieves markdown chunks from src/data/domain/conversations_playbook.md.",
+    "REQ_04_per_request_memory": "src/memory.ts stores retrieval, persona outputs, and synthesis trace per request.",
+    "REQ_05_deterministic_synthesis": "src/predictor.ts calls the synthesis LLM with temperature 0 and fixed seed 424242.",
+    "REQ_06_backend_models": "src/llm.ts forwards model IDs unchanged to Ollama or an OpenAI-compatible endpoint.",
+    "REQ_07_response_contract": "src/types.ts and src/predictor.ts produce the required response shape.",
+    "REQ_08_tests": "src/test/*.test.ts verifies validation, RAG, heuristics, persona count, and synthesis settings.",
+    "REQ_09_readme_video_verification": "../readme.md contains the video URL placeholder and reviewer verification guide."
+  },
+  "strictnessChecks": {
+    "endpoint": "POST /v1/predict",
+    "personaCount": 3,
+    "distinctPersonaValues": true,
+    "parallelPersonaFanout": true,
+    "ragSource": "src/data/domain/conversations_playbook.md",
+    "perRequestMemory": true,
+    "synthesisTemperature": 0,
+    "synthesisSeed": 424242,
+    "allowedIntentClasses": ["accept", "counter_offer", "reject", "offer", "inquiry"],
+    "confidenceRange": [0, 1],
+    "nodeVersion": ">=24.0.0",
+    "externalDependenciesRequired": false
+  }
+}
